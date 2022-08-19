@@ -1,20 +1,20 @@
-type Pbx{
-    id:String
-    queueProjections(queues:[String]):[QueueProjection]
-    summary:[Metric]
+type Pbx {
+    id: String
+    queueProjections(queues:[String]): [QueueProjection]
+    summary: [Metric]
 }
 
 type QueueProjection {
-    extension:String
-    metrics(metricNames:[String]):[Metric]
-    agentActivities(agentExtensions:[String]):[AgentProjection]
-    agentTotals:[Metric]
+    extension: String
+    metrics(metricNames: [String]): [Metric]
+    agentActivities(agentExtensions: [String]): [AgentProjection]
+    agentTotals: [Metric]
 }
 
-type AgentProjection{
-    extension:String
-    name:String
-    metrics:[Metric]
+type AgentProjection {
+    extension: String
+    name: String
+    metrics: [Metric]
 }
 
 type Metric {
@@ -22,11 +22,6 @@ type Metric {
     value:Float
 }
 
-
 type Query {
     report(pbxId: String!): Pbx
 }
-
-
-
-
