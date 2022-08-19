@@ -1,27 +1,53 @@
 type Pbx {
     id: String
-    queueProjections(queues:[String]): [QueueProjection]
-    summary: [Metric]
+    queueProjections(extensions: [String]): [QueueProjection]
+    agentProjections(extensions: [String]): [AgentProjection]
 }
 
 type QueueProjection {
     extension: String
-    metrics(metricNames: [String]): [Metric]
-    agentActivities(agentExtensions: [String]): [AgentProjection]
-    agentTotals: [Metric]
+    name: String,
+    metrics: QueueMetrics
+    agentActivities(extensions: [String]): [AgentActivityProjection]
+    agentActivitiesTotals(extensions: [String]): AgentActivityProjection
+}
+
+type QueueMetrics {
+    callsWaitingInQueueCount: Int,
+    availableAgentsCount: Int,
+    totalWaitDuration: Int, # we could use a custom scalar type for durations
+    longestWaitDuration: Int,
+    totalHandlingDuration: Int,
+    sla: Float, # in range [0..1]
+}
+
+type AgentActivityProjection {
+    extension: String
+    name: String
+    metrics: AgentActivityProjectionMetrics,
+}
+
+type AgentActivityProjectionMetrics {
+    status: AgentStatus,
+    statusTime: Int, # timestamp since in the current status, could be a custom scalar
+    handlingDuration: Int,
 }
 
 type AgentProjection {
     extension: String
-    name: String
-    metrics: [Metric]
+    name: String,
+    metrics: AgentProjectionMetrics,
 }
 
-type Metric {
-    metricName: String
-    value:Float
+type AgentProjectionMetrics {
+    status: AgentStatus,
+    statusTime: Int, # timestamp since in the current status, could be a custom scalar
+    handlingDuration: Int,
+    queueAvailabilityCount: Int, # number of queues the agent is available in
 }
 
-type Query {
-    report(pbxId: String!): Pbx
+enum AgentStatus {
+    AVAILABLE,
+    HANDLING,
+    LOGGED_OUT
 }
