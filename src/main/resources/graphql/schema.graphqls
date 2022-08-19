@@ -1,7 +1,11 @@
 type Pbx {
     id: String
+
     queueProjections(extensions: [String]): [QueueProjection]
+    queueProjectionsTotals(extensions: [String]): QueueMetrics
+
     agentProjections(extensions: [String]): [AgentProjection]
+    agentProjectionsTotals(extensions: [String]): AgentProjectionMetrics
 }
 
 type QueueProjection {
@@ -9,7 +13,7 @@ type QueueProjection {
     name: String,
     metrics: QueueMetrics
     agentActivities(extensions: [String]): [AgentActivityProjection]
-    agentActivitiesTotals(extensions: [String]): AgentActivityProjection
+    agentActivitiesTotals(extensions: [String]): AgentActivityProjectionMetrics
 }
 
 type QueueMetrics {
