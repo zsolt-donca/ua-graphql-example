@@ -1,3 +1,7 @@
+type Query {
+    report(pbxId: String!): Pbx
+}
+
 type Pbx {
     id: String
 
