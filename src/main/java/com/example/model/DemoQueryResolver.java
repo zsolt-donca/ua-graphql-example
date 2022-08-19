@@ -6,9 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DemoQueryResolver implements com.example.model.graphql.QueryResolver, QueueProjectionResolver {
-
-
+public class DemoQueryResolver implements com.example.model.graphql.QueryResolver {
     @Override
     public Pbx report(String pbxId) throws Exception {
         if (pbxId.equals("1")) {
@@ -16,15 +14,5 @@ public class DemoQueryResolver implements com.example.model.graphql.QueryResolve
         } else {
             return null;
         }
-    }
-
-    @Override
-    public List<AgentActivityProjection> agentActivities(QueueProjection queueProjection, List<String> extensions) throws Exception {
-        return null;
-    }
-
-    @Override
-    public AgentActivityProjectionMetrics agentActivitiesTotals(QueueProjection queueProjection, List<String> extensions) throws Exception {
-        return null;
     }
 }
